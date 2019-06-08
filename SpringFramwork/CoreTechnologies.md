@@ -16,3 +16,8 @@ spring 框架有着自己的AOP框架，并且简单易懂，同时成功实现�
 - 信息资源的处理（用于国际化）
 - 事件发布
 - 应用程序的特定上下文，例如用于Web应用程序的WebApplicationContext
+简而言之，BeanFactory提供了配置框架和基本功能，而ApplicationContext则添加了更多企业开发中特定的功能。ApplicationContext是BeanFactory的完整超集，在本章中专门用于Spring的IoC容器的描述。针对BeanFactory（非ApplicationContext）的描述请参阅这里**链接**。
+在Spring中构成应用程序的主干并由Spring IoC管理的对象背称作Bean。Bean是一个由Spring IoC容器实例化，组装，管理的对象。否则Bean只是应用程序中的一个简单的对象。Bean及其他们之间的依赖关系反映在容器所使用的配置元数据之中。
+### 1.2容器概览
+org.springframework.context.ApplicationContext接口即Spring IoC容器，负责实例化、配置、组装bean。容器通过读取配置元数据来获取有关需要实例化，配置，组装的对象的相关指令。配置元数据可以是xml文件，java注解或者是java代码。因此可以表达应用程序的对象，以及对象之间的丰富依赖关系。
+Spring提供了ApplicationContext的若干接口实现。在独立的应用中，通常会使用ClassPathXmlApplicationContext或者FileSystemXmlApplicationContext实例。由于xml是定义元数据的传统方式，因此可以使用配置少量的xml文件来声明容器使用java注解或者java代码作为元数据定义的方式，以开启对这种两种定义方式的支持。
