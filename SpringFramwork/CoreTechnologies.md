@@ -23,3 +23,11 @@ org.springframework.context.ApplicationContext接口即Spring IoC容器，负责
 Spring提供了ApplicationContext的若干接口实现。在独立的应用中，通常会使用ClassPathXmlApplicationContext或者FileSystemXmlApplicationContext实例。由于xml是定义元数据的传统方式，因此可以使用配置少量的xml文件来声明容器使用java注解或者java代码作为元数据定义的方式，以开启对这种两种定义方式的支持。
 在大多数的应用程序中，不需要用户在代码中显式的实例化Spirng IoC容器的一个或多个实例。例如，在web应用场景中，在项目的web.xml文件中只需要模板化的简单的8行代码就足够了（具体请参考web应用程序的ApplicationContext实例）。如果你使用Spirng Tool Suit（一个基于Eclipse的开发工具），只需简单的点击几下鼠标就可以轻松的创建文件模板。
 以下图从高层次概括的展示了Spirng是如何工作的。用户的应用程序与配置元数据相互结合，一边ApplicationContext创建和初始化后，用户拥有完全配置并且可执行的系统或者程序。
+ #### 1.2.1配置元数据
+如上图所示，Sring IoC使用配置的方式作为元数据。作为开发人员，这个配置元数据告诉Spring容器实例化、配置和组装应用程序中的对象。
+通常，配置文件以简单直观的xml文件格式给出，本章的大部分内容会表述Spring IoC的关键概念已经功能。  
+*基于xml的元数据并不是唯一允许的配置元数据的方式。Spring IoC容器本身完全与实际编写此配置元数据的方式解隅。目前，许多开发人员为其Spring应用程序选择基于Java的配置。*
+有关在Spring容器中使用其他形式的元数据的信息可以参考一下内容：
+- 基于注解的配置：Spring2.5引入了对基于注解的配置方式的支持
+- 基于Java的配置：从Spring3.0开始，Spring JavaConfig项目中提供的许多功能都成为了Spring Framework的一部分。因此，开发人员可以使用Java而不是XML文件在应用程序类外部定义bean，参考@config，@bean，@Import，和@Dependency注解。
+
