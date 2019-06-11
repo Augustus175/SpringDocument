@@ -30,4 +30,6 @@ Spring提供了ApplicationContext的若干接口实现。在独立的应用中�
 有关在Spring容器中使用其他形式的元数据的信息可以参考一下内容：
 - 基于注解的配置：Spring2.5引入了对基于注解的配置方式的支持
 - 基于Java的配置：从Spring3.0开始，Spring JavaConfig项目中提供的许多功能都成为了Spring Framework的一部分。因此，开发人员可以使用Java而不是XML文件在应用程序类外部定义bean，参考@config，@bean，@Import，和@Dependency注解。
+Spring配置包含容器所要管理的一个或多个bean的定义。基于xml配置的bean方式为：<beans/> 为元素的顶级标识，<bean/>作为内部标识。而Java配置方式是则通常是在@Configuration 中使用bean注解方式（@Bean-annotated）。    
+这些bean的定义对应于构成应用程序的实际对象。通常，开发人员可以定义服务层对象（service），数据访问层（data access objects），视图层（presentation，类似于Struts的Action对象），以及像Hibernate、SessionFactory、JMS队列等基础结构对象。通常不会在容器中配置细粒度的域对象。因为域对象往往由DAO层或者业务逻辑层负责加载。当然也可以使用Spring与AspectJ的集成功能来控制在IoC容器之外的对象的创建。
 
