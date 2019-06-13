@@ -56,3 +56,6 @@ Spring配置包含容器所要管理的一个或多个bean的定义。基于xml�
 id属性的值指向对应的对象。在这个xml实例中没有显示各个bean对应的对象。需要了解更多内容请阅读参考依赖连接。
 #### 1.2.1 实例化容器
 实例化试，传递给ApplicationContext带参构造方法的字符串参数是资源路径。容器允许从外部资源（如本地文件系统，JAVACLASSPATH等）加载元数据。
+````java
+ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", "daos.xml");
+````
