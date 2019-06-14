@@ -59,3 +59,46 @@ id属性的值指向对应的对象。在这个xml实例中没有显示各个bea
 ````java
 ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", "daos.xml");
 ````
+**在了解了Spring IoC容器之后，或许你想了解更多关于Spring的资源抽象的知识（具体可以参见参考资料**链接**）。spring 提供了一种符合url定义的资源路径描述。特别是，如应用程序与资源路径中<链接>所描述的资源路径用于构建应用程序的context。**    
+以下事例中显示了服务层对象（service.xml）配置文件：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- services -->
+
+    <bean id="petStore" class="org.springframework.samples.jpetstore.services.PetStoreServiceImpl">
+        <property name="accountDao" ref="accountDao"/>
+        <property name="itemDao" ref="itemDao"/>
+        <!-- additional collaborators and configuration for this bean go here -->
+    </bean>
+
+    <!-- more bean definitions for services go here -->
+
+</beans>
+```
+一下的代码显示了数据访问层（daos.xml）的配置文件
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="accountDao"
+        class="org.springframework.samples.jpetstore.dao.jpa.JpaAccountDao">
+        <!-- additional collaborators and configuration for this bean go here -->
+    </bean>
+
+    <bean id="itemDao" class="org.springframework.samples.jpetstore.dao.jpa.JpaItemDao">
+        <!-- additional collaborators and configuration for this bean go here -->
+    </bean>
+
+    <!-- more bean definitions for data access objects go here -->
+
+</beans>
+```
+在前面的例子中，服务层（以下统称为service层）由PetStoreServiceImpl 类和连个数据访问层。
