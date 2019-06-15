@@ -101,4 +101,4 @@ ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", 
 
 </beans>
 ```
-在前面的例子中，服务层（以下统称为service层）由PetStoreServiceImpl 类和连个数据访问层。
+在前面的例子中，服务层（以下统称为service层）由PetStoreServiceImpl 类和两个名为JpaAccountDao和JpaItemDao的数据访问层。petStore中的各个属性，其中name元素代表PetStoreServiceImpl类中的对应属性名，ref元素代表对应类的bean的id。id和ref元素之间的关系体现了对象之间的依赖关系。有关配置文件的依赖关系的详细信息参阅<链接>
