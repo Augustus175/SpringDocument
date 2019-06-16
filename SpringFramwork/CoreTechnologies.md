@@ -1,3 +1,4 @@
+
 #核心技术
 #####5.2.0.M2 版本
 
@@ -102,3 +103,15 @@ ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", 
 </beans>
 ```
 在前面的例子中，服务层（以下统称为service层）由PetStoreServiceImpl 类和两个名为JpaAccountDao和JpaItemDao的数据访问层。petStore中的各个属性，其中name元素代表PetStoreServiceImpl类中的对应属性名，ref元素代表对应类的bean的id。id和ref元素之间的关系体现了对象之间的依赖关系。有关配置文件的依赖关系的详细信息参阅<链接>
+#### 编写基于xml配置文件的元数据
+将把阿匼定义到多个而非一个xml文件中会很有用。通常，每一个单独的xml配置文件都代表程序架构中的一个个逻辑层或者模块。用户可以使用应用程序的上下文构造器从所有的xml文件内容中加载bean的定义。构造器采用多个不同的资源路径，资源路径见上一节<链接>。或者使用一个或多个**<import/>**元素来从一个或多个文件中加载bean定义。下面是一个例子。    
+```xml
+<beans>
+    <import resource="services.xml"/>
+    <import resource="resources/messageSource.xml"/>
+    <import resource="/resources/themeSource.xml"/>
+
+    <bean id="bean1" class="..."/>
+    <bean id="bean2" class="..."/>
+</beans>
+```
