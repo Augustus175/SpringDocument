@@ -115,3 +115,4 @@ ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", 
     <bean id="bean2" class="..."/>
 </beans>
 ```
+在上面的示例中，外部bean定义从三个文件加载：services.xml，messageSource.xml和themeSource.xml。所有位置路径都相对于执行导入操作的文件，所以service.xml必须和导入文件处以同一路径或者与导入文件处以同一类路径下。而messageSource.xml和themeSource.xml必须在负责导入文件的resources路径下。如上所示路径开头的"/"是不起作用的。但是，鉴于这些都是相对路径，因此不要使用"/"开头。根据Spring Schema，导入的文件的内容（包括顶级<beans/>元素）必须是有效的XML bean定义。
