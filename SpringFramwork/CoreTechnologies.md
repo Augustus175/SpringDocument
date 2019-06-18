@@ -116,3 +116,32 @@ ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", 
 </beans>
 ```
 在上面的示例中，外部bean定义从三个文件加载：services.xml，messageSource.xml和themeSource.xml。所有位置路径都相对于执行导入操作的文件，所以service.xml必须和导入文件处以同一路径或者与导入文件处以同一类路径下。而messageSource.xml和themeSource.xml必须在负责导入文件的resources路径下。如上所示路径开头的"/"是不起作用的。但是，鉴于这些都是相对路径，因此不要使用"/"开头。根据Spring Schema，导入的文件的内容（包括顶级<beans/>元素）必须是有效的XML bean定义。
+
+```
+在配置文件中可以但是不建议使用“../”的形式表示父级目录。这么做导致当前的应用对该程序以外的文件产生依赖。特别是在classpath:URLs中使用（例如：classpath:../services.xml）运行是解析类过程中会选择最近一次加载的类路径，然后查找其父路径。类路径配置的更改可能会导致选择的路径不同，从而导致路径错误。
+用户可以使用全限定绝对路径而不是相对路径，例如：file:C:/config/services.xml或者classpath:/config/services.xml。但是，一定要注意将应用程序的配置与特定的绝对路径像吻合。通常的比较合理的方法是保持绝对路径的参数化。————例如通过使用${...}在运行是针对jvm系统属性来解析占位符。
+```
+命名空间本身提供了导入指令功能。Spring提供的一系列xml命名空间中提供了除普通bean定义外的其他配置功能。————如context和util的命名空间。
+#### Groovy Bean定义DSL
+作为外部化配置元数据的示例，bean的定义也可以使用Spring的Groovy Bean定义DSL，就像Grails框架那样。通常，此类配置位于“.groovy”文件中，其结构如下例所示：
+```java
+beans {
+    dataSource(BasicDataSource) {
+        driverClassName = "org.hsqldb.jdbcDriver"
+        url = "jdbc:hsqldb:mem:grailsDB"
+        username = "sa"
+        password = ""
+        settings = [mynew:"setting"]
+    }
+    sessionFactory(SessionFactory) {
+        dataSource = dataSource
+    }
+    myService(MyService) {
+        nestedBean = { AnotherBean bean ->
+            dataSource = dataSource
+        }
+    }
+}
+
+```
+此配置样式在很大程度上等同于XML bean定义，甚至支持Spring的XML配置命名空间。它还允许通过importBeans指令导入XML bean定义文件。
