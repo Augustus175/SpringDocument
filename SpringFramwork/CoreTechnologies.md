@@ -185,3 +185,13 @@ Spring的IoC容器管理着一个或多个bean。这些bean是用户提供给容
 这些元数据转换成构成每一个bean得以的一组属性。以下的表格描述了这些属性：
 表1.bean定义
 |--属性|--定义|
+|:-----|:-----|
+|Class|bean对应的实体类|
+|Name|Bean名称 |
+|Scope|Bean的作用域|
+|Constructor arguments|依赖注入|
+|Properties|依赖注入|
+|Autowiring mode|Autoriring 模式|
+|Lazy initialization mode|懒加载模式|
+|Initialization method|初始化方法调用|
+|Destruction method|销毁调用|
