@@ -195,3 +195,4 @@ Spring的IoC容器管理着一个或多个bean。这些bean是用户提供给容
 |Lazy initialization mode|懒加载模式|
 |Initialization method|初始化方法调用|
 |Destruction method|销毁调用|
+除了包含有关如何创建特定bean的信息的bean定义之外，ApplicationsContext实现还允许注册在外部（由用户）创建的现有对象。
