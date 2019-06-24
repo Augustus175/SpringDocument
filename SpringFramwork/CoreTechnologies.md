@@ -195,4 +195,10 @@ Spring的IoC容器管理着一个或多个bean。这些bean是用户提供给容
 |Lazy initialization mode|懒加载模式|
 |Initialization method|初始化方法调用|
 |Destruction method|销毁调用|
-除了包含有关如何创建特定bean的信息的bean定义之外，ApplicationsContext实现还允许注册在外部（由用户）创建的现有对象。
+除了包含有关如何创建特定bean的信息的bean定义之外，ApplicationsContext实现还允许注册在外部（由用户）创建的现有对象。这是通过通过getBeanFactory()方法访问ApplicationContext的BeanFactory来完成的，该方法返回BeanFactory接口的默认实现类DefaultListableBeanFactory。DefaultListableBeanFactory通过registerSingleton()和registerBeanDefinition()方法来支持注册。但是，典型的应用程序仅使用通过常规bean定义的元数据方式定义的bean。
+```
+元数据定义的bean和手动提供的单例实例需要尽可能早的注册，以便容器在自动装配和其他自我校验过程中进行正确的类型推断。虽然在某种程度上支持覆盖现有元数据和现有的单例实例，但是运行时注册新bean（与工厂的实时访问同时进行）并没有得到正式支持，可能会导致并发访问异常、bean容器中的状态不一致或两者都不一致。
+```
+### 1.3.1 Bean的命名
+每一个bean都有一个或者多个标识符。这些标识符在管理它的容器中必须是全局唯一的。通常bean只有一个标识符。但是，如果它需要多个标识符，那么这个bean的其他标识符，可以视为别名。   
+在基于xml的配置文件中，使用id属性，name属性，或者两者来指定bean的标识符。id属性允许用户指点一个id。通常这些名字是字母或者数字（比如myBean，someService等），同时也可以包含特殊字符。如果想要为bean引入其他别名，还可以在name属性中指定它们，用逗号（,），分号（;）或者空格来分割。在Spring的历史版本中，在3.1之前的版本，id属性定义为xsd:ID类型，它约束了可能的字符。从3.1开始，它被定义为xsd:string类型。注意，bean ID唯一性仍旧由容器强制执行，但不再由xml解析器强制执行。
