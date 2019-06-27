@@ -201,4 +201,10 @@ Spring的IoC容器管理着一个或多个bean。这些bean是用户提供给容
 ```
 ### 1.3.1 Bean的命名
 每一个bean都有一个或者多个标识符。这些标识符在管理它的容器中必须是全局唯一的。通常bean只有一个标识符。但是，如果它需要多个标识符，那么这个bean的其他标识符，可以视为别名。   
-在基于xml的配置文件中，使用id属性，name属性，或者两者来指定bean的标识符。id属性允许用户指点一个id。通常这些名字是字母或者数字（比如myBean，someService等），同时也可以包含特殊字符。如果想要为bean引入其他别名，还可以在name属性中指定它们，用逗号（,），分号（;）或者空格来分割。在Spring的历史版本中，在3.1之前的版本，id属性定义为xsd:ID类型，它约束了可能的字符。从3.1开始，它被定义为xsd:string类型。注意，bean ID唯一性仍旧由容器强制执行，但不再由xml解析器强制执行。
+在基于xml的配置文件中，使用id属性，name属性，或者两者来指定bean的标识符。id属性允许用户指点一个id。通常这些名字是字母或者数字（比如myBean，someService等），同时也可以包含特殊字符。如果想要为bean引入其他别名，还可以在name属性中指定它们，用逗号（,），分号（;）或者空格来分割。在Spring的历史版本中，在3.1之前的版本，id属性定义为xsd:ID类型，它约束了可能的字符。从3.1开始，它被定义为xsd:string类型。注意，bean ID唯一性仍旧由容器强制执行，但不再由xml解析器强制执行。    
+对于Spring来说bean的name和id并不是必须的。如果没有明确的提供name和id的值，容器就会为该Bean生成唯一name。但是，如果希望通过名称来使用该bean，通过使用ref元素或者Serivice Locator来查找，就必须为Bean提供一个唯一的name值。匿名的原因与使用内部bean和自动装配有关。（待议）。
+```
+Bean的命名规范
+在为Bean命名时通常是使用标准的Java约定作为实例字段的名称。也就是说bean名称以小写字母开头，并遵循驼峰的命名规则。例如：accountManager, accountService, userDao, loginController。
+为bean命名可以使配置更易于阅读和理解。另外，如果使用Spring AOP，那么为bean设置一个与功能相关的名称会很有帮助。
+```
