@@ -208,3 +208,6 @@ Bean的命名规范
 在为Bean命名时通常是使用标准的Java约定作为实例字段的名称。也就是说bean名称以小写字母开头，并遵循驼峰的命名规则。例如：accountManager, accountService, userDao, loginController。
 为bean命名可以使配置更易于阅读和理解。另外，如果使用Spring AOP，那么为bean设置一个与功能相关的名称会很有帮助。
 ```
+```
+Spring 通过组件扫描器扫描类路径，然后按照上述的规则为匿名的类命名，实际上Spring在自动命名时会将类的简单类名的首字母变为小写作为该bean的名字。但是，在（少数）特殊情况下，当类的简单类名的前两个字母都为大写时，那么Spring就直接使用原始的简单类名为bean命名，而不在将首字母小写。这些规则与java.beans.Introspector.decapitalize（Spring在此处使用）中定义的规则相同。
+```
