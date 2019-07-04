@@ -218,3 +218,16 @@ Spring 通过组件扫描器扫描类路径，然后按照上述的规则为匿�
 <alias name="fromName" alias="toName"/>
 ```
 在上面的示例中，同一个容器中的bean既可以叫做fromName，又可以叫做toName。
+例如，子系统A的配置元数据可以通过subsystemA-dataSource名称来引用DataSource数据。子系统B的配置元数据可以通过subsystemB-dataSource的名称引用DataSource。主系统在使用这两个子系统时，主系统可以通过myApp-dataSource来引用DataSource。要使以上的三个名称都同事指向一个对象需要在元数据中如下定义别名：
+```xml
+<alias name="myApp-dataSource" alias="subsystemA-dataSource"/>
+<alias name="myApp-dataSource" alias="subsystemB-dataSource"/>
+```  
+现在，每个组件和主应用程序都可以通过一个唯一的名称引用dataSource，并且在有效地创建命名空间后能确保不与任何其他定义冲突，但它们引用相同的bean。
+```
+Java 配置
+如果使用Javaconfiguration，则可以使用@Bean注解来声明别名。有关详细信息，请参阅使用@Bean注解
+```
+### 1.3.2 实例化Beans
+Bean本质上是用来创建一个或多个java对象的清单。当被访问并使用又该bean定义封装的配置元数据来创建（或获取）实际对象时，容器就会查看具名bean的清单。
+如果使用基于XML的配置元数据，则指定要在<bean />元素的class属性中实例化的对象的类型（或类）
