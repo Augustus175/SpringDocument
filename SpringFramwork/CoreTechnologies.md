@@ -229,5 +229,7 @@ Java 配置
 如果使用Javaconfiguration，则可以使用@Bean注解来声明别名。有关详细信息，请参阅使用@Bean注解
 ```
 ### 1.3.2 实例化Beans
+
 Bean本质上是用来创建一个或多个java对象的清单。当被访问并使用又该bean定义封装的配置元数据来创建（或获取）实际对象时，容器就会查看具名bean的清单。
 如果使用基于XML的配置元数据，则指定要在<bean />元素的class属性中实例化的对象的类型（或类）
+class属性通常是必须的(class是BeanDefinition实例上的Class属性)。
