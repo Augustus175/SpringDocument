@@ -239,3 +239,5 @@ class属性通常是必须的(class是BeanDefinition实例上的Class属性)。�
 如果要为静态嵌套类配置bean定义，则必须使用嵌套类的二进制名称。
 例如，如果在com.example包中有一个名为SomeThing的类，并且此SomeThing类具有一个名为OtherThing的静态嵌套类，则bean定义上的class属性值将为com.example.SomeThing $ OtherThing。
 请注意，在名称中使用$字符可以将嵌套类名与外部类名分开。
+使用构造器实例化
+当使用构造方法创建bean时，所有普通类都可以与使用并且能与Spring兼容。也就是说，正在开发的类不需要实现任何特定接口或以特定方式编码。只要简单的指定bean类就可以了。但是，根据为该特定bean使用的IoC类型，可能需要一个默认（空）构造函数。
