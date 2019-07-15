@@ -239,5 +239,17 @@ class属性通常是必须的(class是BeanDefinition实例上的Class属性)。�
 如果要为静态嵌套类配置bean定义，则必须使用嵌套类的二进制名称。
 例如，如果在com.example包中有一个名为SomeThing的类，并且此SomeThing类具有一个名为OtherThing的静态嵌套类，则bean定义上的class属性值将为com.example.SomeThing $ OtherThing。
 请注意，在名称中使用$字符可以将嵌套类名与外部类名分开。
+
 使用构造器实例化
-当使用构造方法创建bean时，所有普通类都可以与使用并且能与Spring兼容。也就是说，正在开发的类不需要实现任何特定接口或以特定方式编码。只要简单的指定bean类就可以了。但是，根据为该特定bean使用的IoC类型，可能需要一个默认（空）构造函数。Spring IOC容器几乎可以管理任何类。它不仅限于管理真正的JavaBeans。
+
+当使用构造方法创建bean时，所有普通类都可以与使用并且能与Spring兼容。也就是说，正在开发的类不需要实现任何特定接口或以特定方式编码。只要简单的指定bean类就可以了。但是，根据为该特定bean使用的IoC类型，可能需要一个默认（空）构造函数。Spring IOC容器几乎可以管理任何类。它不仅限于管理真正的JavaBeans。大部分的Spring使用人员在使用实际的JavaBeans时候通常喜欢给该Javabean设置一个无参的构造器，同时为在容器中该bean配置的属性设置getter和setter方法。你也可以在容器包含更多的非bean格式的类。例如即使你使用绝对不符合JavaBeans规范的旧的连接池，Spring也能够对其进行管理。   
+
+在使用基于XML的配置文件中，你可以参照如下的形式声明一个bean类。
+```xml
+<bean id="exampleBean" class="examples.ExampleBean"/>
+
+<bean name="anotherExample" class="examples.ExampleBeanTwo"/>
+```
+有关带参的构造方法以及在实例化对象之后再为对象设置相关属性的详细机制，请参阅依赖注入（链接）。
+#### 使用静态工厂方法实例化
+
