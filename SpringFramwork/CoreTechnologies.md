@@ -252,4 +252,21 @@ class属性通常是必须的(class是BeanDefinition实例上的Class属性)。�
 ```
 有关带参的构造方法以及在实例化对象之后再为对象设置相关属性的详细机制，请参阅依赖注入（链接）。
 #### 使用静态工厂方法实例化
+定义使用静态工厂方法创建的bean时，请使用class属性指定包含静态工厂方法的类和名为factory-method的属性，以指定工厂方法本身的名称。你应该能够调用这个方法 (就像后面提到的，该方法带有可选参数 )并返回一个活动对象，随后将其视为通过构造函数创建的。这种bean定义的一个用途是在遗留代码中调用静态工厂。以下bean定义指定通过调用工厂方法来创建bean。该定义未指定返回对象的类型（类），仅指定包含工厂方法的类。在此示例中，createInstance()方法必须是静态方法。以下示例显示如何指定工厂方法:
+````xml
+<bean id="clientService"
+    class="examples.ClientService"
+    factory-method="createInstance"/>
+````
+以下示例显示了一个可以使用前面的bean定义的类:
+```java
+public class ClientService {
+    private static ClientService clientService = new ClientService();
+    private ClientService() {}
 
+    public static ClientService createInstance() {
+        return clientService;
+    }
+}
+```
+有关向工厂方法提供(可选)参数并在对象从工厂返回后设置对象实例属性的机制的详细信息，请参阅依赖项和配置。<链接>
