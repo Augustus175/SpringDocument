@@ -270,3 +270,62 @@ public class ClientService {
 }
 ```
 有关向工厂方法提供(可选)参数并在对象从工厂返回后设置对象实例属性的机制的详细信息，请参阅依赖项和配置。<链接>
+#### 使用实例工厂方法实例化
+与通过静态工厂方法实例化类似，使用实例工厂方法进行实例化会从容器调用现有bean的非静态方法来创建新bean。如果使用该机制，需要将class属性保留为空，并在factory-bean属性中指定当前（父级或祖先）容器中bean的名称，该容器包含要调用以创建对象的实例方法。使用factory-method属性设置工厂方法本身的名称。以下示例显示如何配置此类bean：
+```xml
+<!-- the factory bean, which contains a method called createInstance() -->
+<bean id="serviceLocator" class="examples.DefaultServiceLocator">
+    <!-- inject any dependencies required by this locator bean -->
+</bean>
+
+<!-- the bean to be created via the factory bean -->
+<bean id="clientService"
+    factory-bean="serviceLocator"
+    factory-method="createClientServiceInstance" > 
+```
+下示例显示了相应的Java类：
+```java
+public class DefaultServiceLocator {
+
+    private static ClientService clientService = new ClientServiceImpl();
+
+    public ClientService createClientServiceInstance() {
+        return clientService;
+    }
+}
+``` 
+个工厂类也可以包含多个工厂方法，如以下示例所示： 
+```xml
+<bean id="serviceLocator" class="examples.DefaultServiceLocator">
+    <!-- inject any dependencies required by this locator bean -->
+</bean>
+
+<bean id="clientService"
+    factory-bean="serviceLocator"
+    factory-method="createClientServiceInstance"/>
+
+<bean id="accountService"
+    factory-bean="serviceLocator"
+    factory-method="createAccountServiceInstance"/>
+```
+以下示例显示了相应的Java类：
+```java
+public class DefaultServiceLocator {
+
+    private static ClientService clientService = new ClientServiceImpl();
+
+    private static AccountService accountService = new AccountServiceImpl();
+
+    public ClientService createClientServiceInstance() {
+        return clientService;
+    }
+
+    public AccountService createAccountServiceInstance() {
+        return accountService;
+    }
+}
+```
+这种方法表明工厂bean本身可以通过依赖注入（DI）进行管理和配置。请参阅详细信息中的依赖关系和配置。<链接>
+```
+Spring文档中，“工厂bean”指的是在Spring容器中配置的bean，它通过实例或静态工厂方法创建对象。相反，FactoryBean(注意大小写)指的是特定于spring的FactoryBean。 
+```
