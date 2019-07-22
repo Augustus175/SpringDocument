@@ -329,3 +329,7 @@ public class DefaultServiceLocator {
 ```
 Spring文档中，“工厂bean”指的是在Spring容器中配置的bean，它通过实例或静态工厂方法创建对象。相反，FactoryBean(注意大小写)指的是特定于spring的FactoryBean。 
 ```
+###1.4依赖
+典型的企业应用程序不仅仅包含单个的对象（或Spring中的单个bean）。即使是最简单的应用程序也有一些对象可以协同工作，以呈现最终用户所看到的连贯应用程序。 这一节将介绍如何定义多个独立的bean定义，以及对象之间相互协作实现的应用程序的既定目标。 
+####1.4.1依赖注入
+
