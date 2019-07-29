@@ -332,4 +332,22 @@ Spring文档中，“工厂bean”指的是在Spring容器中配置的bean，它
 ###1.4依赖
 典型的企业应用程序不仅仅包含单个的对象（或Spring中的单个bean）。即使是最简单的应用程序也有一些对象可以协同工作，以呈现最终用户所看到的连贯应用程序。 这一节将介绍如何定义多个独立的bean定义，以及对象之间相互协作实现的应用程序的既定目标。 
 ####1.4.1依赖注入
-赖项注入(Dependency injection, DI)是一个过程，在这个过程中，对象仅通过构造函数参数、到工厂方法的参数或从工厂方法构造或返回对象实例后,在对象实例上设置的属性来定义它们的依赖项(即与它们一起工作的其他对象)。 这个过程基本上是bean本身的反向（因此名称，控制反转），它通过使用类的直接构造或服务定位器模式来控制其依赖项的实例化或位置。
+赖项注入(Dependency injection, DI)是一个过程，在这个过程中，对象仅通过构造函数参数、到工厂方法的参数或从工厂方法构造或返回对象实例后,在对象实例上设置的属性来定义它们的依赖项(即与它们一起工作的其他对象)。 这个过程基本上是bean本身的反向（因此名称，控制反转），它通过使用类的直接构造或服务定位器模式来控制其依赖项的实例化或位置。    
+使用依赖注入（DI） 这种方式使代码更为清晰，也更容易实现对象和它的依赖之间的解耦。该对象不需要查找其依赖，也不需知道依赖的位置和具体的类。因此，代码更容易测试特别是当依赖的使接口或者抽象类时，因此在单元测试中可以使用存根或模拟实现。  
+DI存在两个主要形式：基于构造函数的依赖注入和基于Setter的依赖注入。
+##### 基于构造器的依赖注入
+基于构造函数的DI是由容器调用一个构造函数来完成的，该构造函数有许多参数，每个参数表示一个依赖项。调用具有特定参数的静态工厂方法来构造bean几乎是等效的，本讨论同样处理构造函数和静态工厂方法的参数。以下示例显示了一个只能通过构造函数注入进行依赖注入的类。
+```java
+public class SimpleMovieLister {
+
+    // the SimpleMovieLister has a dependency on a MovieFinder
+    private MovieFinder movieFinder;
+
+    // a constructor so that the Spring container can inject a MovieFinder
+    public SimpleMovieLister(MovieFinder movieFinder) {
+        this.movieFinder = movieFinder;
+    }
+
+    // business logic that actually uses the injected MovieFinder is omitted...
+} 
+```
